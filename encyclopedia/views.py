@@ -8,10 +8,15 @@ def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
     })
-#def search(request):
-    
+def search(request):
+    if request.method =="POST":
+        search_query = request.POST.get('q', '')
+        all_entries = util.list_entries()
+        for entry in all_entries:
+            score = fuzz.WRatio(search_query,entry)
+            print(score)  
 
-  
+    
 def title(request, title):
     artical_name = util.get_entry(title)
     if artical_name == None:
