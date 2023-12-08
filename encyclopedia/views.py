@@ -21,8 +21,8 @@ def search(request):
                 all_titles =[]
                 for artical_name, _ in artical_names_with_score:
                     all_titles.append(artical_name)
-                print(all_titles)    
-                return HttpResponse('getting closer')
+                print(all_titles)
+                return render(request, "")
 
     
 def title(request, title):
