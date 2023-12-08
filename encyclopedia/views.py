@@ -15,8 +15,11 @@ def search(request):
         for entry in all_entries:
             score = fuzz.WRatio(search_query,entry)
             if score == 100:
-                return
-        return HttpResponse('getting closer')
+                return redirect(f"wiki/{entry}")
+            else:
+                other_score = process.extract(search_query, all_entries)
+                print(other_score)
+                return HttpResponse('getting closer')
 
     
 def title(request, title):
