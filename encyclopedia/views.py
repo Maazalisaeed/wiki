@@ -15,7 +15,7 @@ def search(request):
         for entry in all_entries:
             score = fuzz.WRatio(search_query,entry)
             if score == 100:
-                print(entry)
+                return
         return HttpResponse('getting closer')
 
     
