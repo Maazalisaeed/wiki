@@ -9,6 +9,7 @@ def index(request):
         "entries": util.list_entries()
     })
 #def search(request):
+    
 
   
 def title(request, title):
