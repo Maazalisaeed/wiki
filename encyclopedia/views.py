@@ -14,7 +14,9 @@ def search(request):
         all_entries = util.list_entries()
         for entry in all_entries:
             score = fuzz.WRatio(search_query,entry)
-            print(score)  
+            if score == 100:
+                print(entry)
+        return HttpResponse('getting closer')
 
     
 def title(request, title):
