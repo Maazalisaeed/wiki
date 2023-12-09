@@ -17,12 +17,9 @@ def search(request):
             if score == 100:
                 return redirect(f"wiki/{entry}")
             else:
-                artical_names_with_score = process.extract(search_query, all_entries)
-                all_titles =[]
-                for artical_name, _ in artical_names_with_score:
-                    all_titles.append(artical_name)
-                print(all_titles)
-                return render(request, "")
+                continue
+        artical_names_with_score = process.extract(search_query, all_entries)
+        return render(request, "encyclopedia/search.html",{"entries": artical_names_with_score})    
 
     
 def title(request, title):
