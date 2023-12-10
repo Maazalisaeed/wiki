@@ -1,8 +1,8 @@
 from django.shortcuts import render , HttpResponse , redirect
 from django.urls import reverse
 from fuzzywuzzy import fuzz , process
-
 from . import util
+
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -15,6 +15,7 @@ def search(request):
         for entry in all_entries:
             score = fuzz.WRatio(search_query,entry)
             if score == 100:
+
                 return redirect(f"wiki/{entry}")
             else:
                 continue
