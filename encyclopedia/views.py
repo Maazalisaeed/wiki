@@ -14,7 +14,6 @@ def search(request):
         for entry in all_entries:
             score = fuzz.WRatio(search_query,entry)
             if score == 100:
-                mdtohtml.markdown_converter(entry)
                 return redirect(f"wiki/{entry}")
             else:
                 continue
