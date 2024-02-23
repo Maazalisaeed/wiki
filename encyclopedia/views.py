@@ -2,7 +2,8 @@ from django.shortcuts import render , HttpResponse , redirect
 from django.urls import reverse
 from fuzzywuzzy import fuzz , process
 from . import util
-from . import mdtohtml
+import markdown2
+
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -26,7 +27,6 @@ def search(request):
 def title(request, title):
     artical_name = util.get_entry(title)
     if artical_name == None:
-        return HttpResponse("sorry this artical dose not exist yet")
-    return HttpResponse(f"{artical_name}")
+        return render(request, "encyclopedia/Error_page.html")
+    return render(request, "encyclopedia/articel_page.html",{"data_from_entry": markdown2.markdown(artical_name), "title":title})
     
-def articelpage((title))
