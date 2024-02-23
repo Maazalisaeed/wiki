@@ -29,4 +29,4 @@ def title(request, title):
         return HttpResponse("sorry this artical dose not exist yet")
     return HttpResponse(f"{artical_name}")
     
-
+def articelpage((title))
