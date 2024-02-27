@@ -27,6 +27,26 @@ def search(request):
 def title(request, title):
     artical_name = util.get_entry(title)
     if artical_name == None:
-        return render(request, "encyclopedia/Error_page.html")
+        error="#This page doesn't seem to exist"
+        return render(request, "encyclopedia/Error_page.html",{"error": markdown2.markdown(error)})
     return render(request, "encyclopedia/articel_page.html",{"data_from_entry": markdown2.markdown(artical_name), "title":title})
     
+def new_page(request):
+    if request.method =="POST":
+        title = request.POST["title"]
+        content = request.POST["content"]
+        all_entries = util.list_entries()
+        match_found= False
+        for entry in all_entries:
+            score = fuzz.WRatio(title,entry)
+            if score == 100:
+                error = "## Article with this title already exist you can edit the page in the edit tab"
+                match_found= True
+                return render(request,"encyclopedia/Error_page.html",{"error": markdown2.markdown(error), "context_of_the_error":True})
+            else:
+                continue
+        if match_found == False:
+             util.save_entry(title,content)    
+        
+    return render(request,"encyclopedia/new_page.html")
+   
