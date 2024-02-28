@@ -2,6 +2,7 @@ from django.shortcuts import render , HttpResponse , redirect
 from django.urls import reverse
 from fuzzywuzzy import fuzz , process
 from . import util
+from .forms import NewPageForm
 import markdown2
 
 
@@ -32,24 +33,22 @@ def title(request, title):
     return render(request, "encyclopedia/articel_page.html",{"data_from_entry": markdown2.markdown(artical_name), "title":title})
     
 def new_page(request):
+    if request.method == "GET":
+        
+        return render(request,"encyclopedia/new_page.html",{"form":NewPageForm()})
     if request.method =="POST":
-        try:
-            title = request.POST["title"]
-            content = request.POST["content"]
-            all_entries = util.list_entries()
-            match_found= False
-            for entry in all_entries:
-                score = fuzz.WRatio(title,entry)
-                if score == 100:
-                    error = "## Article with this title already exist you can edit the page in the edit tab"
-                    match_found= True
-                    return render(request,"encyclopedia/Error_page.html",{"error": markdown2.markdown(error), "context_of_the_error":True})
-                else:
-                    continue                    
-        except KeyError:
-            error ="## Please fill both titile and content feilds"
-            return render(request,"encyclopedia/Error_page.html",{"error": markdown2.markdown(error), "context_of_the_error":True})            
-
+        title = request.POST["title"]
+        content = request.POST["content"]
+        all_entries = util.list_entries()
+        match_found= False
+        for entry in all_entries:
+            score = fuzz.WRatio(title,entry)
+            if score == 100:
+                error = "## Article with this title already exist you can edit the page in the edit tab"
+                match_found= True
+                return render(request,"encyclopedia/Error_page.html",{"error": markdown2.markdown(error), "context_of_the_error":True})
+            else:
+                continue                              
         if match_found == False:
              util.save_entry(title,content)            
     return render(request,"encyclopedia/new_page.html")
