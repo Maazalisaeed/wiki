@@ -8,10 +8,11 @@
 
     <iframe src="https://giphy.com/embed/CaiVJuZGvR8HK" width="380" height="380" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/loop-thinking-triple-CaiVJuZGvR8HK">via GIPHY</a></p>
     {% if context_of_the_error%}
-        <form action="{% url 'new_page' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Edit this page instead</button>
-        </form>
+    <form action="{% url 'edit_page'%}" method="post" class="error_page_button">
+        {% csrf_token %}
+        <input type="hidden" name="article_name" value="{{title}}">
+        <button type="submit" >&#128221;Edit</button>
+    </form>
     {%endif%}
 </div>
 {% endblock %}

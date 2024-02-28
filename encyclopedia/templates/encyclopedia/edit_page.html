@@ -1,9 +1,9 @@
 {% extends "encyclopedia/layout.html" %}
 {% block title %}
-    New Articel
+Edit Page
 {% endblock %}
 {% block body %}
-<form action="{% url 'new_page' %}" method="post">
+<form action="{% url 'save_edited_articles'%}" method="post" >
     {% csrf_token %}
     <div class="form_variable">
     {{ form.as_p }}

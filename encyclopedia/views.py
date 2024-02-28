@@ -33,9 +33,9 @@ def title(request, title):
     return render(request, "encyclopedia/articel_page.html",{"data_from_entry": markdown2.markdown(artical_name), "title":title})
     
 def new_page(request):
-    if request.method == "GET":
-        
+    if request.method == "GET":      
         return render(request,"encyclopedia/new_page.html",{"form":NewPageForm()})
+    
     if request.method =="POST":
         title = request.POST["title"]
         content = request.POST["content"]
@@ -46,10 +46,24 @@ def new_page(request):
             if score == 100:
                 error = "## Article with this title already exist you can edit the page in the edit tab"
                 match_found= True
-                return render(request,"encyclopedia/Error_page.html",{"error": markdown2.markdown(error), "context_of_the_error":True})
+                return render(request,"encyclopedia/Error_page.html",{"error": markdown2.markdown(error), "context_of_the_error":True, "title":title})
             else:
                 continue                              
         if match_found == False:
              util.save_entry(title,content)            
     return render(request,"encyclopedia/new_page.html",{"form":NewPageForm()})
-   
+
+def edit_page(request):
+    if request.method == "POST":
+        title = request.POST["article_name"]
+        content_of_the_article= util.get_entry(title)
+        form = NewPageForm(initial={'title': title, 'content': content_of_the_article})
+        return render(request,"encyclopedia/edit_page.html",{"form":form})
+
+def save_edited_entries(request):
+    if request.method =="POST":
+        title = request.POST["title"]
+        content = request.POST["content"]
+        util.save_entry(title,content)
+        return redirect(f"wiki/{title}")
+    

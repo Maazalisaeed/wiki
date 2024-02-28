@@ -46,3 +46,12 @@ textarea {
     font-weight: bold;
     font-size: larger;
 }
+.edit_button{
+    text-align: right;
+    font-size: larger;
+    margin-right: 40px;
+
+}
+.error_page_button{
+    font-size: xx-large;
+}
