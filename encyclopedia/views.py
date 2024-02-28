@@ -51,5 +51,5 @@ def new_page(request):
                 continue                              
         if match_found == False:
              util.save_entry(title,content)            
-    return render(request,"encyclopedia/new_page.html")
+    return render(request,"encyclopedia/new_page.html",{"form":NewPageForm()})
    

@@ -36,6 +36,13 @@ textarea {
 .sidebar h2 {
     margin-top: 5px;
 }
-#center_div {
+.center_div {
     text-align: center;
+}
+.form_variable label {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+    font-weight: bold;
+    font-size: larger;
 }

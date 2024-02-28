@@ -5,7 +5,11 @@
 {% block body %}
 <form action="{% url 'new_page' %}" method="post">
     {% csrf_token %}
-    {{ form }}  {% if match_found %}
+    <div class="form_variable">
+    {{ form }}
+    </div> 
+    <input type="submit" value="Submit"> 
+    {% if match_found %}
     <p class="error">{{ error }}</p>
 {% endif %}
 </form>
