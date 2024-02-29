@@ -4,6 +4,7 @@ from fuzzywuzzy import fuzz , process
 from . import util
 from .forms import NewPageForm
 import markdown2
+import random
 
 # ... this function retuns list of all the entries to the index.html for it to be rendered
 def index(request):
@@ -74,4 +75,13 @@ def save_edited_entries(request):
         content = request.POST["content"]
         util.save_entry(title,content)
         return redirect(f"wiki/{title}")
-    
+def random_Page(request):
+    if request.method =="GET":
+        x = 0
+        dictionarie_of_titles = {}
+        for entry in util.list_entries():
+            x += 1
+            dictionarie_of_titles [x] =entry
+            
+        random_int = random.randint(1,x)
+        return redirect(f"wiki/{dictionarie_of_titles[random_int]}")
