@@ -55,3 +55,9 @@ textarea {
 .error_page_button{
     font-size: xx-large;
 }
+.worldbook{
+        position: absolute;
+        right: 34px;
+        z-index: 1;
+        top: 15px;
+}
