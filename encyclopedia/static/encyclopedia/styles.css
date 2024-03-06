@@ -46,6 +46,9 @@ textarea {
     font-weight: bold;
     font-size: larger;
 }
+.form_variable textarea{
+    border-radius: 25px;
+}
 .edit_button{
     text-align: right;
     font-size: larger;
@@ -60,4 +63,7 @@ textarea {
         right: 34px;
         z-index: 1;
         top: 15px;
+}
+.round{
+    border-radius: 5px;
 }
